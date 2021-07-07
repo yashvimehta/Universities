@@ -18,10 +18,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -42,40 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 countries.add(country);
             }
         }
-        String url ="http://universities.hipolabs.com/search?country=India";
-
-// Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                       Log.i("YAYAYAYAY", "Response is: "+ response.substring(0,500));
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("ERRRRRRRRR", "That didn't work!");
-            }
-        });
-
-//        String url = "http://my-json-feed";
-//
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-//                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                       Log.i("EEEEE" , "Response: " + response.toString());
-//                    }
-//                }, new Response.ErrorListener() {
-//
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        // TODO: Handle error
-//
-//                    }
-//                });
 
         AutoCompleteTextView autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
@@ -93,6 +65,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
