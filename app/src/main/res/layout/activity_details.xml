@@ -8,7 +8,7 @@
     tools:context=".Details">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgName"
         android:layout_width="78dp"
         android:layout_height="66dp"
         android:layout_marginStart="53dp"
@@ -19,47 +19,47 @@
         app:srcCompat="@drawable/name" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgCountry"
         android:layout_width="78dp"
         android:layout_height="66dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="25dp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imgName"
         app:srcCompat="@drawable/country" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imgDomain"
         android:layout_width="78dp"
         android:layout_height="66dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="25dp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imgCountry"
         app:srcCompat="@drawable/domian" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imgWebpage"
         android:layout_width="78dp"
         android:layout_height="66dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="25dp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/imgDomain"
         app:srcCompat="@drawable/web_icon" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/imgCode"
         android:layout_width="78dp"
         android:layout_height="66dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="25dp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/imgWebpage"
         app:srcCompat="@drawable/code" />
 
     <TextView
@@ -74,7 +74,7 @@
         android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/imgName"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -89,7 +89,7 @@
         android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imgCountry"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <TextView
@@ -104,7 +104,7 @@
         android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/imgDomain"
         app:layout_constraintTop_toBottomOf="@+id/country" />
 
     <TextView
@@ -119,7 +119,7 @@
         android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/imgWebpage"
         app:layout_constraintTop_toBottomOf="@+id/domain" />
 
     <TextView
@@ -134,11 +134,11 @@
         android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
+        app:layout_constraintStart_toEndOf="@+id/imgCode"
         app:layout_constraintTop_toBottomOf="@+id/website" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -150,5 +150,30 @@
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/wifiImage"
+        android:layout_width="78dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="53dp"
+        app:layout_constraintBottom_toTopOf="@+id/domain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/country"
+        app:layout_constraintVertical_bias="0.463"
+        app:srcCompat="@drawable/wifi" />
+
+    <TextView
+        android:id="@+id/wifTtext"
+        android:layout_width="209dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="36dp"
+        android:text="Oops!:( Looks like there is no internet connection"
+        android:textColor="#000000"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/domain"
+        app:layout_constraintStart_toEndOf="@+id/imgCountry"
+        app:layout_constraintTop_toBottomOf="@+id/country"
+        app:layout_constraintVertical_bias="0.365" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

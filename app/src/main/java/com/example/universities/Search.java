@@ -51,21 +51,24 @@ public class Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);//will hide the title
         getSupportActionBar().hide(); //hide the title bar
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+
         SQLiteDatabase myDB = this.openOrCreateDatabase("details", MODE_PRIVATE, null);
+
         Intent intent;
         intent = getIntent();
         String country="";
         country+= intent.getStringExtra("country");
 
+        String finalCountry = country;
 
         OkHttpClient client = new OkHttpClient();
         String url = "http://universities.hipolabs.com/search?country="+country;
         okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
-        String finalCountry = country;
-        String finalCountry1 = country;
-        String finalCountry2 = country;
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
@@ -75,7 +78,7 @@ public class Search extends AppCompatActivity {
                         @Override
                         public void run() {
                             int i=0;
-                            while(i<myResponse.length() && countries.size()<20 ) {
+                            while(i<myResponse.length() && countries.size()<1001 ) {
                                 if (i+4<myResponse.length() && myResponse.substring(i,i+4).equals("name")){
                                     i=i+8;
                                     String s="";
@@ -91,7 +94,6 @@ public class Search extends AppCompatActivity {
                             for(int j=0;j<20;j++){
                                 okhttp3.Request request1 = new okhttp3.Request.Builder().url("http://universities.hipolabs.com/search?name="+countries.get(j)+"&country="+ finalCountry).build();
                                 int finalJ = j;
-                                int finalJ1 = j;
                                 client.newCall(request1).enqueue(new Callback() {
                                     @Override
                                     public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
@@ -131,9 +133,10 @@ public class Search extends AppCompatActivity {
                                                         }
                                                         i++;
                                                     }
-                                                    String s = countries.get(finalJ1);
+                                                    String s = countries.get(finalJ);
                                                     Log.i("s", s);
-                                                    String v= finalCountry2;
+                                                    String v= finalCountry;
+
                                                     myDB.execSQL("CREATE TABLE IF NOT EXISTS detail_universityy (name VARCHAR PRIMARY KEY, country VARCHAR, domains VARCHAR, webpages VARCHAR, alpha_code VARCHAR)");
                                                     try{
                                                         myDB.execSQL("INSERT INTO detail_universityy  VALUES ( '"+s+"' , '"+v+"' ,'"+domains+"', '"+web_pages+"', '"+alpha_two_code+"')");
@@ -175,13 +178,15 @@ public class Search extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
+                //no data available
+                Toast.makeText(Search.this, "No data available!", Toast.LENGTH_SHORT).show();
             }
 
         });
 
     }
     public void countryAgain(View view){
+        //go back to search country
         Intent intent = new Intent(Search.this, MainActivity.class);
         startActivity(intent);
         finish();
