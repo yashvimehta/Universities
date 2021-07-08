@@ -2,7 +2,10 @@ package com.example.universities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,11 +45,11 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 
 public class Search extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        SQLiteDatabase myDB = this.openOrCreateDatabase("details", MODE_PRIVATE, null);
         Intent intent;
         intent = getIntent();
         String country="";
@@ -58,6 +61,8 @@ public class Search extends AppCompatActivity {
         String url = "http://universities.hipolabs.com/search?country="+country;
         okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
         String finalCountry = country;
+        String finalCountry1 = country;
+        String finalCountry2 = country;
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
@@ -67,7 +72,7 @@ public class Search extends AppCompatActivity {
                         @Override
                         public void run() {
                             int i=0;
-                            while(i<myResponse.length() && countries.size()<1001 ) {
+                            while(i<myResponse.length() && countries.size()<20 ) {
                                 if (i+4<myResponse.length() && myResponse.substring(i,i+4).equals("name")){
                                     i=i+8;
                                     String s="";
@@ -79,6 +84,65 @@ public class Search extends AppCompatActivity {
                                     countries.add(s);
                                 }
                                 i++;
+                            }
+                            for(int j=0;j<20;j++){
+                                okhttp3.Request request1 = new okhttp3.Request.Builder().url("http://universities.hipolabs.com/search?name="+countries.get(j)+"&country="+ finalCountry).build();
+                                int finalJ = j;
+                                int finalJ1 = j;
+                                client.newCall(request1).enqueue(new Callback() {
+                                    @Override
+                                    public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
+                                        if (response.isSuccessful()) {
+                                            final String myResponse = response.body().string();
+                                            Search.this.runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    int i = 15;
+                                                    String domains = "", alpha_two_code = "", state_province = "null";
+                                                    String web_pages="";
+                                                    while (!myResponse.substring(i, i + 1).equals("\"")) {
+                                                        domains += myResponse.substring(i, i + 1);
+                                                        i++;
+                                                    }
+                                                    while (i < myResponse.length()) {
+                                                        if (i + 9 < myResponse.length() && myResponse.substring(i, i + 9).equals("web_pages")) {
+                                                            i = i + 14;
+                                                            while (i + 1 < myResponse.length() && !myResponse.substring(i, i + 1).equals("\"")) {
+                                                                web_pages+= myResponse.substring(i, i + 1);
+                                                                i++;
+                                                            }
+                                                            i--;
+                                                            break;
+                                                        }
+                                                        i++;
+                                                    }
+                                                    while (i < myResponse.length()) {
+                                                        if (i + 14 < myResponse.length() && myResponse.substring(i, i + 14).equals("alpha_two_code")) {
+                                                            i = i + 18;
+                                                            while (i + 1 < myResponse.length() && !myResponse.substring(i, i + 1).equals("\"")) {
+                                                                alpha_two_code += myResponse.substring(i, i + 1);
+                                                                i++;
+                                                            }
+                                                            i--;
+                                                            break;
+                                                        }
+                                                        i++;
+                                                    }
+                                                    String s = countries.get(finalJ1);
+                                                    String v= finalCountry2;
+                                                    myDB.execSQL("CREATE TABLE IF NOT EXISTS detail_uni (name VARCHAR, country VARCHAR, domains VARCHAR, webpages VARCHAR, alpha_code VARCHAR)");
+                                                    myDB.execSQL("INSERT INTO detail_uni  VALUES ( '"+v+" ' , '"+s+"' ,'"+domains+"', '"+web_pages+"', '"+alpha_two_code+"')");
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                });
                             }
                             ListView myListView = findViewById(R.id.myListView);
                             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, countries);
