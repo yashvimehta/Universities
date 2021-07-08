@@ -183,5 +183,4 @@ public class Details extends AppCompatActivity {
 
         });
     }
-    }
 }
