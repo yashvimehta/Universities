@@ -75,10 +75,7 @@ public class Details extends AppCompatActivity {
         String url = "http://universities.hipolabs.com/search?name=" + name + "&country=" + country;
         okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
 
-        String finalName1 = name;
-        String finalCountry2 = country;
-        String finalName2 = name;
-        String finalName3 = name;
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
@@ -118,8 +115,8 @@ public class Details extends AppCompatActivity {
                                 i++;
                             }
                             //show info
-                            textViewName.setText(finalName1);
-                            textViewCountry.setText(finalCountry2);
+                            textViewName.setText(finalName);
+                            textViewCountry.setText(finalCountry);
                             textViewDomain.setText(domains);
                             textViewWebsite.setText(web_pages);
                             textViewCode.setText(alpha_two_code);
@@ -147,7 +144,7 @@ public class Details extends AppCompatActivity {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                Cursor resultSet = myDB.rawQuery("SELECT * FROM detail_universityy WHERE name=?", new String[]{finalName3});
+                Cursor resultSet = myDB.rawQuery("SELECT * FROM detail_universityy WHERE name=?", new String[]{finalName});
                 int y= resultSet.getCount();
                 resultSet.moveToFirst();
                 if (y > 0) {
