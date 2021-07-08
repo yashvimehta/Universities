@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -33,9 +34,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public class Details extends AppCompatActivity {
-    int cacheSize;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//will hide the title
+        getSupportActionBar().hide(); //hide the title bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         Log.i("PPPPPPPP", "ppp");
@@ -57,20 +59,13 @@ public class Details extends AppCompatActivity {
         String finalCountry = country;
         String finalName = name;
         String finalCountry1 = country;
-        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo nInfo = cm.getActiveNetworkInfo();
-        boolean connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
-        Cursor resultSet = myDB.rawQuery("Select domains from detail_uni  where name='Yashvi'", null);
-        resultSet.moveToFirst();
-        if (!connected) {
-            if (resultSet.getCount() == 0) {
-                //print no data available
-            } else {
-                //show data
-            }
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
         } else{
             String finalName1 = name;
             String finalCountry2 = country;
+            String finalName2 = name;
+            String finalName3 = name;
             client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
@@ -128,7 +123,24 @@ public class Details extends AppCompatActivity {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
+                //where name='"+ finalName2 +"'
+                Cursor resultSet = myDB.rawQuery("SELECT * FROM detail_universityy WHERE name=?", new String[]{finalName3});
+                int y= resultSet.getCount();
+                resultSet.moveToFirst();
+                if (y == 0) {
+                    //print no data available\
+                } else {
+                    //show data
+                    while(!resultSet.isAfterLast()){
+                        textViewName.setText(resultSet.getString(resultSet.getColumnIndex("name")));
+                        textViewCountry.setText(resultSet.getString(resultSet.getColumnIndex("country")));
+                        textViewDomain.setText(resultSet.getString( resultSet.getColumnIndex("domains")));
+                        textViewWebsite.setText(resultSet.getString(resultSet.getColumnIndex("webpages")));
+                        textViewCode.setText(resultSet.getString(resultSet.getColumnIndex("alpha_code")));
+                        resultSet.moveToNext();
+                    }
+                }
+                resultSet.close();
             }
 
         });

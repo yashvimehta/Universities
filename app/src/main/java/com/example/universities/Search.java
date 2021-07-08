@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -45,8 +46,11 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 
 public class Search extends AppCompatActivity {
+    ArrayList<String> countries = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//will hide the title
+        getSupportActionBar().hide(); //hide the title bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         SQLiteDatabase myDB = this.openOrCreateDatabase("details", MODE_PRIVATE, null);
@@ -55,7 +59,6 @@ public class Search extends AppCompatActivity {
         String country="";
         country+= intent.getStringExtra("country");
 
-        ArrayList<String> countries = new ArrayList<String>();
 
         OkHttpClient client = new OkHttpClient();
         String url = "http://universities.hipolabs.com/search?country="+country;
@@ -129,9 +132,15 @@ public class Search extends AppCompatActivity {
                                                         i++;
                                                     }
                                                     String s = countries.get(finalJ1);
+                                                    Log.i("s", s);
                                                     String v= finalCountry2;
-                                                    myDB.execSQL("CREATE TABLE IF NOT EXISTS detail_uni (name VARCHAR, country VARCHAR, domains VARCHAR, webpages VARCHAR, alpha_code VARCHAR)");
-                                                    myDB.execSQL("INSERT INTO detail_uni  VALUES ( '"+v+" ' , '"+s+"' ,'"+domains+"', '"+web_pages+"', '"+alpha_two_code+"')");
+                                                    myDB.execSQL("CREATE TABLE IF NOT EXISTS detail_universityy (name VARCHAR PRIMARY KEY, country VARCHAR, domains VARCHAR, webpages VARCHAR, alpha_code VARCHAR)");
+                                                    try{
+                                                        myDB.execSQL("INSERT INTO detail_universityy  VALUES ( '"+s+"' , '"+v+"' ,'"+domains+"', '"+web_pages+"', '"+alpha_two_code+"')");
+                                                    }
+                                                    catch(Exception e){
+
+                                                    }
                                                 }
                                             });
                                         }
@@ -171,5 +180,10 @@ public class Search extends AppCompatActivity {
 
         });
 
+    }
+    public void countryAgain(View view){
+        Intent intent = new Intent(Search.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -11,6 +11,7 @@
         android:layout_width="413dp"
         android:layout_height="789dp"
         android:layout_marginBottom="1dp"
+        android:background="@drawable/imageedit_4_7543735750"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,10 +19,10 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="419dp"
-        android:layout_height="95dp"
+        android:layout_width="412dp"
+        android:layout_height="87dp"
         android:background="#579346"
-        android:backgroundTint="#B31414"
+        android:backgroundTint="#9393DA"
         android:lineSpacingExtra="12sp"
         android:text="Search your country again?"
         android:textColor="#000000"

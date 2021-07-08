@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".Details">
 
     <ImageView
@@ -11,7 +12,8 @@
         android:layout_width="78dp"
         android:layout_height="66dp"
         android:layout_marginStart="53dp"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="180dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/name" />
@@ -22,6 +24,7 @@
         android:layout_height="66dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="25dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:srcCompat="@drawable/country" />
@@ -32,6 +35,7 @@
         android:layout_height="66dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="25dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:srcCompat="@drawable/domian" />
@@ -42,6 +46,7 @@
         android:layout_height="66dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="25dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
         app:srcCompat="@drawable/web_icon" />
@@ -52,6 +57,7 @@
         android:layout_height="66dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="25dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
         app:srcCompat="@drawable/code" />
@@ -59,13 +65,14 @@
     <TextView
         android:id="@+id/name"
         android:layout_width="244dp"
-        android:layout_height="47dp"
+        android:layout_height="66dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="180dp"
         android:layout_marginEnd="10dp"
-        android:text="Textview"
         android:textAlignment="viewStart"
         android:textColor="#000000"
+        android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -73,13 +80,14 @@
     <TextView
         android:id="@+id/country"
         android:layout_width="250dp"
-        android:layout_height="46dp"
+        android:layout_height="66dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
-        android:text="TextView"
         android:textAlignment="viewStart"
         android:textColor="#000000"
+        android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/name" />
@@ -87,13 +95,14 @@
     <TextView
         android:id="@+id/domain"
         android:layout_width="246dp"
-        android:layout_height="40dp"
+        android:layout_height="66dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
-        android:text="TextView"
         android:textAlignment="viewStart"
         android:textColor="#000000"
+        android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/country" />
@@ -101,13 +110,14 @@
     <TextView
         android:id="@+id/website"
         android:layout_width="247dp"
-        android:layout_height="30dp"
+        android:layout_height="66dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
-        android:text="TextView"
         android:textAlignment="viewStart"
         android:textColor="#000000"
+        android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/domain" />
@@ -115,15 +125,30 @@
     <TextView
         android:id="@+id/code"
         android:layout_width="250dp"
-        android:layout_height="30dp"
+        android:layout_height="66dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
-        android:text="TextView"
         android:textAlignment="viewStart"
         android:textColor="#000000"
+        android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
         app:layout_constraintTop_toBottomOf="@+id/website" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="88dp"
+        android:text="DETAILS:"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
